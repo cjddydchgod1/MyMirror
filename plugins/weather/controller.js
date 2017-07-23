@@ -6,11 +6,11 @@ function Weather($scope, $interval, $http, GeolocationService) {
 
 	weather.get = function () {
 		return $http.jsonp('https://api.darksky.net/forecast/' + config.forecast.key + '/' +
-            geoposition.coords.latitude + ',' + geoposition.coords.longitude + '?units=' +
-            config.forecast.units + "&lang=" + language + "&callback=JSON_CALLBACK")
-            .then(function (response) {
-	return weather.forecast = response;
-});
+					geoposition.coords.latitude + ',' + geoposition.coords.longitude + '?units=' +
+					config.forecast.units + "&lang=" + language + "&callback=JSON_CALLBACK")
+					.then(function (response) {
+						return weather.forecast = response;
+					});
 	};
 
 	weather.minutelyForecast = function () {
@@ -68,6 +68,11 @@ function Weather($scope, $interval, $http, GeolocationService) {
 			$scope.weeklyForecast = weather.weeklyForecast();
 			$scope.hourlyForecast = weather.hourlyForecast();
 			$scope.minutelyForecast = weather.minutelyForecast();
+			//Check123 No Use???
+			// $scope.iconLoad = function(a,b){
+				// console.log(a);
+				// console.log(b);
+			// };
 		}, function (err) {
 			console.error(err)
 		});

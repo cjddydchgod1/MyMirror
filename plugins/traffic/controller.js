@@ -4,7 +4,7 @@ function Traffic($scope, $http, $interval, $q, TimeboxService) {
 	var getDurationForTrips = function () {
 		var deferred = $q.defer();
 		var promises = [];
-		
+
 		if (typeof config.traffic != 'undefined' && config.traffic.key != '' && config.traffic.trips) {
 			angular.forEach(config.traffic.trips, function (trip) {
 				if (trip.hasOwnProperty('startTime') && TimeboxService.shouldDisplay(trip.startTime, trip.endTime)
@@ -17,7 +17,6 @@ function Traffic($scope, $http, $interval, $q, TimeboxService) {
 				deferred.resolve(data)
 			});
 		} else {
-			
 			deferred.reject;
 		}
 
@@ -69,6 +68,7 @@ function Traffic($scope, $http, $interval, $q, TimeboxService) {
 			endpoint += "&optmz=distance";
 		}
 		endpoint += "&key=" + config.traffic.key;
+
 		return endpoint;
 	}
 
@@ -76,7 +76,6 @@ function Traffic($scope, $http, $interval, $q, TimeboxService) {
 		getDurationForTrips().then(function (tripsWithTraffic) {
             //Todo this needs to be an array of traffic objects -> $trips[]
 			$scope.trips = tripsWithTraffic;
-			
 		}, function (error) {
 			$scope.traffic = { error: error };
 		});
