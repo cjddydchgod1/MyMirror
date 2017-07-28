@@ -8,7 +8,6 @@ const {ipcRenderer} = require('electron');
 		var callbacks = {}
 		var commandList = []
 		var commandPage = []
-
 		service.init = function (cb) {
             // workaround so we can trigger requests at any time 
 			annyang.isListening = () => { return true }
@@ -63,6 +62,7 @@ const {ipcRenderer} = require('electron');
 		service.commands = {}
 
 		service.addCommand = function (commandId, callback) {
+			
 			var voiceId = 'commands.' + commandId + '.voice';
 			var textId = 'commands.' + commandId + '.text';
 			var descId = 'commands.' + commandId + '.description';

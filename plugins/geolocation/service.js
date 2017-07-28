@@ -36,13 +36,13 @@
 
 				$http.get("https://maps.googleapis.com/maps/api/browserlocation/json?browser=chromium").then(
                     function (result) {
-	var location = angular.fromJson(result).data.location
-	deferred.resolve({ 'coords': { 'latitude': location.lat, 'longitude': location.lng } })
-},
+						var location = angular.fromJson(result).data.location
+						deferred.resolve({ 'coords': { 'latitude': location.lat, 'longitude': location.lng } })
+					},
                     function (err) {
-	console.debug("Failed to retrieve geolocation.", err)
-	deferred.reject("Failed to retrieve geolocation.")
-});
+						console.debug("Failed to retrieve geolocation.", err)
+						deferred.reject("Failed to retrieve geolocation.")
+					});
 			}
 
 			geoloc = deferred.promise;

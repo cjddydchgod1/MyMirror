@@ -3,6 +3,7 @@
 	'use strict';
 
 	function SoundCloudService($http) {
+		
 		var service = {};
 		var intv,
 			audio = document.querySelector('audio'),

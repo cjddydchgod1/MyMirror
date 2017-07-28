@@ -1,5 +1,5 @@
 function Search($scope, $http, SpeechService, $rootScope, Focus) {
-	var searchYouTube = function (query) {
+	var searchYouTube = function (query) {		
 		return $http({
 			url: 'https://www.googleapis.com/youtube/v3/search',
 			method: 'GET',
