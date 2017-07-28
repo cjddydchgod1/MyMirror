@@ -8,9 +8,9 @@ function Search($scope, $http, SpeechService, $rootScope, Focus) {
 				'order': 'relevance',
 				'q': query,
 				'type': 'video',
+				'maxResults':8,
 				'videoEmbeddable': 'true',
 				'videoSyndicated': 'true',
-                //Sharing this key in the hopes that it wont be abused 
 				'key': config.youtube.key
 			}
 		});
@@ -25,24 +25,52 @@ function Search($scope, $http, SpeechService, $rootScope, Focus) {
 	SpeechService.addCommand('video_search', function (query) {
 		searchYouTube(query).then(function (results) {
             //Set cc_load_policy=1 to force captions
-			$scope.video = 'https://www.youtube.com/embed/' + results.data.items[0].id.videoId + '?autoplay=1&controls=0&iv_load_policy=3&enablejsapi=1&showinfo=0';
+			
+			$scope.video = '//www.youtube.com/embed/' + results.data.items[0].id.videoId + '?autoplay=1&controls=0';
+
+
 			Focus.change("video");
 		});
 	});
+	
+	searchYouTube("Demi Lovato - sorry not sorry").then(function (results) {
+		//Set cc_load_policy=1 to force captions
+		var videoObj = [];
+		angular.forEach(results.data.items, function (item, index) {
+			if(!item.snippet.description.includes('Provided')){
+				videoObj.push({
+					id : item.id.videoId,
+					title : item.snippet.title,
+					thumb : item.snippet.thumbnails.default
+				});
+			}
+		});
+			
+		console.log(videoObj);
+		
+		// $scope.video = 'http://www.youtube.com/embed/' + results.data.items[0].id.videoId + '?autoplay=1&controls=0';
+		
+		Focus.change("video");
+	});
+		
+		
 
     //Stop video
-	SpeechService.addCommand('video_stop', function () {
-		Focus.change("default");
-		stopVideo();
-	});
+	// SpeechService.addCommand('video_stop', function () {
+		// Focus.change("default");
+		// stopVideo();
+	// });
 
-	$rootScope.$on('focus', function (targetScope, newFocus, oldFocus) {
-		if(oldFocus == "video" && newFocus != "video"){
-			stopVideo();
-		}
-	})
+	// $rootScope.$on('focus', function (targetScope, newFocus, oldFocus) {
+		// if(oldFocus == "video" && newFocus != "video"){
+			// stopVideo();
+		// }
+	// })
 
 }
 
 angular.module('SmartMirror')
     .controller('Search', Search);
+	
+
+	
