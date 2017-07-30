@@ -1,38 +1,21 @@
 <!-- YouTube -->
 <style>
-.itemWrapper{width:calc(25% - 4px);height:220px;float:left;margin:1px;border:1px solid #fff;}
+.videoList{width:10%;overflow:hidden;float:left;}
+.itemWrapper{width:100%;border:1px solid #fff;border-left:none;border-right:none;}
 .itemWrapper img{width:100%;}
+.videoPlayer{width:90%;float:right}
 </style>
 <div ng-controller="Search" class="contents-box video-container animate-grow" ng-show="focus == 'video'">
 	
+	<div class="videoList">
+		<div class="itemWrapper" ng-repeat="item in items" ng-if="$index <6">
+			<img src="{{item.thumb}}/hqdefault.jpg"  fallback-src="{{item.thumb}}/maxresdefault.jpg"/>
+		</div>
+	</div>	
 	
-	<div class="itemWrapper" >
-		<img src="https://i.ytimg.com/vi/Yj3Il9rKQO4/default.jpg" />
+	<div class="videoPlayer">
+		<iframe class="video animate-grow" ng-src="{{video}}" /></iframe>
 	</div>
-	<div class="itemWrapper" >
-		<img src="https://i.ytimg.com/vi/Yj3Il9rKQO4/default.jpg" />
-	</div>
-	<div class="itemWrapper" >
-		<img src="https://i.ytimg.com/vi/Yj3Il9rKQO4/default.jpg" />
-	</div>
-	<div class="itemWrapper" >
-		<img src="https://i.ytimg.com/vi/Yj3Il9rKQO4/default.jpg" />
-	</div>
-	<div class="itemWrapper" >
-		<img src="https://i.ytimg.com/vi/Yj3Il9rKQO4/default.jpg" />
-	</div>
-	<div class="itemWrapper" >
-		<img src="https://i.ytimg.com/vi/Yj3Il9rKQO4/default.jpg" />
-	</div>
-	<div class="itemWrapper" >
-		<img src="https://i.ytimg.com/vi/Yj3Il9rKQO4/default.jpg" />
-	</div>
-	<div class="itemWrapper" >
-		<img src="https://i.ytimg.com/vi/Yj3Il9rKQO4/default.jpg" />
-	</div>
-	
-
-
    
 </div>
 

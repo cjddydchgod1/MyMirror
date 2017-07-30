@@ -6,6 +6,18 @@ function AutoSleep($http, $q, SpeechService,AutoSleepService) {
 		console.debug("Ok, going to sleep...");
 		AutoSleepService.sleep();
 	});
+	
+	AutoSleep.ServieManager = function(mode) {
+		switch(mode){
+			case "stop":
+				AutoSleepService.stopAutoSleepTimer();
+				break;
+			case "start":
+				AutoSleepService.startAutoSleepTimer();
+				break;
+		}
+		
+	}
 
 }
 

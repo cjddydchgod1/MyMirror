@@ -8,6 +8,7 @@
 		service.change = function(newFocus){
 			$rootScope.$broadcast('focus', newFocus, currentFocus)
 			currentFocus = newFocus
+			console.log(newFocus);
 		}
 
 		service.get = function(){
