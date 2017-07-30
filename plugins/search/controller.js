@@ -80,25 +80,25 @@ function Search($scope, $http, SpeechService, $rootScope, Focus) {
 	// Focus.change("video");
 	
 	searchYouTube("kanye chainsmokers").then(function (results) {
-			var videoObj = [];
-			angular.forEach(results.data.items, function (item, index) {
-				videoObj.push({
-					id : item.id.videoId,
-					title : item.snippet.title,
-					// thumb : item.snippet.thumbnails.default
-					 thumb : "https://i.ytimg.com/vi/"+item.id.videoId
-				});
+		var videoObj = [];
+		angular.forEach(results.data.items, function (item, index) {
+			videoObj.push({
+				id : item.id.videoId,
+				title : item.snippet.title,
+				// thumb : item.snippet.thumbnails.default
+				 thumb : "https://i.ytimg.com/vi/"+item.id.videoId
 			});
-			console.log(results.data);
-			$scope.items = videoObj;
-			// $scope.video = 'http://www.youtube.com/embed/' + videoObj[0].id + '?autoplay=1&controls=0';
-			// AutoSleep.ServieManager("stop")
-			// Focus.change("video");
 		});
+		console.log(results.data);
+		$scope.items = videoObj;
+		// $scope.video = 'http://www.youtube.com/embed/' + videoObj[0].id + '?autoplay=1&controls=0';
+		// AutoSleep.ServieManager("stop")
+		// Focus.change("video");
+	});
 		
 		
 	var youtubedl = require('youtube-dl');
-	var url = 'http://www.youtube.com/watch?v=8ELh8eOzq_0';
+	var url = 'http://www.youtube.com/watch?v=kdemFfbS5H0';
 	var option = {maxBuffer:2000*1024};
 	youtubedl.getInfo(url, [], option, function(err, info) {
 	  if (err) throw err;
@@ -107,7 +107,6 @@ function Search($scope, $http, SpeechService, $rootScope, Focus) {
 	  console.log('title:', info.title);
 	  console.log('url:', info.url);
 	  console.log('thumbnail:', info.thumbnail);
-	  // console.log('description:', info.description);
 	  console.log('filename:', info._filename);
 	  console.log('format id:', info.format_id);
 	  
