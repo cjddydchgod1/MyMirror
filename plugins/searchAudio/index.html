@@ -1,0 +1,295 @@
+<!-- YouTube -->
+<style>
+.audioPlayer{width:36%;float:left}
+.audioPlayer .audio{max-height:500px;}
+.audioList{width:60%;overflow:hidden;float:left;padding:2%}
+.audioList .itemWrapper{width:100%;float:left;height:60px;overflow:hidden;}
+.audioList .itemWrapper img{max-height:200px;width:80px;float:left;}
+.audioList .itemWrapper .itemInfo{width:calc(100% - 95px);float:right;text-align:left;text-overflow:ellipsis;overflow:hidden;padding-top:15px;line-height:.8em;}
+.audioList .itemWrapper .itemInfo span{color:white;font-family:monospace;font-size:13px;}
+.audioList .itemWrapper.selected{border:2px solid cyan;}
+</style>
+<style>
+
+.card {
+  position: relative;
+  margin: 1vh auto;
+  width: 320px;
+  height: 420px;
+  border-bottom: 3px solid rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  background: #383749;
+  overflow: hidden;
+}
+
+.disc-placeholder {
+  float: left;
+  position: relative;
+  width: 320px;
+  height: 320px;
+}
+
+.play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 64px;
+  height: 64px;
+  background: gold;
+  border-radius: 50%;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  color: white;
+  font-size: 24px;
+  text-align: center;
+  -webkit-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+}
+.play-button:hover {
+  background: magenta;
+}
+.playing .play-button {
+  background: #292735;
+  color: #383749;
+}
+
+.info {
+  position: relative;
+  padding: 0 20px;
+  font-weight: 300;
+  float: left;
+  width: 280px;
+  z-index: 20;
+}
+.info__band {
+  font-weight: bold;
+}
+
+.progress {
+  position: absolute;
+  width: 320px;
+  height: 420px;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+.progress__bar {
+  background-color: #24232f;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 420px;
+  -webkit-transition: width .95s linear;
+  transition: width .95s linear;
+}
+
+.baseline {
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  opacity: 0;
+  background: magenta;
+}
+.playing .baseline {
+  -webkit-animation: bounce 8275.86207ms linear 32;
+          animation: bounce 8275.86207ms linear 32;
+}
+
+.riffs {
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  opacity: 0;
+  background: cyan;
+}
+.playing .riffs {
+  -webkit-animation: bounce 1034.48276ms linear 32 17068.96552ms, bounce 1034.48276ms linear 16 74482.75862ms, bounce 1034.48276ms linear 16 107586.2069ms, bounce 1034.48276ms linear 60 157241.37931ms;
+          animation: bounce 1034.48276ms linear 32 17068.96552ms, bounce 1034.48276ms linear 16 74482.75862ms, bounce 1034.48276ms linear 16 107586.2069ms, bounce 1034.48276ms linear 60 157241.37931ms;
+}
+
+.kicks {
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  opacity: 0;
+  background: yellow;
+}
+.playing .kicks {
+  -webkit-animation: bounce 517.24138ms linear 64 33103.44828ms, bounce 517.24138ms linear 64 91034.48276ms, bounce 517.24138ms linear 64 190344.82759ms;
+          animation: bounce 517.24138ms linear 64 33103.44828ms, bounce 517.24138ms linear 64 91034.48276ms, bounce 517.24138ms linear 64 190344.82759ms;
+}
+
+.piano {
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  opacity: 0;
+  background: transparent;
+  border: 2px solid #fff;
+}
+.playing .piano {
+  -webkit-animation: bounce 2068.96552ms linear 128, color-rhythm 8275.86207ms linear infinite;
+          animation: bounce 2068.96552ms linear 128, color-rhythm 8275.86207ms linear infinite;
+}
+
+.cover {
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  opacity: 0;
+  background: transparent;
+  overflow: hidden;
+  opacity: .5;
+  -webkit-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+}
+
+.playing .cover {
+  opacity: 1;
+  -webkit-animation: around-the-world 8275.86207ms linear 128;
+          animation: around-the-world 8275.86207ms linear 128;
+}
+
+@-webkit-keyframes bounce {
+  0% {
+    -webkit-transform: scale(0.2);
+            transform: scale(0.2);
+    opacity: 0;
+  }
+  20% {
+    opacity: .33;
+  }
+  100% {
+    -webkit-transform: scale(2.4);
+            transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+@keyframes bounce {
+  0% {
+    -webkit-transform: scale(0.2);
+            transform: scale(0.2);
+    opacity: 0;
+  }
+  20% {
+    opacity: .33;
+  }
+  100% {
+    -webkit-transform: scale(2.4);
+            transform: scale(2.4);
+    opacity: 0;
+  }
+}
+@-webkit-keyframes color-rhythm {
+  0% {
+    border-color: cyan;
+  }
+  25% {
+    border-color: magenta;
+  }
+  50% {
+    border-color: yellow;
+  }
+  100% {
+    border-color: lime;
+  }
+}
+@keyframes color-rhythm {
+  0% {
+    border-color: cyan;
+  }
+  25% {
+    border-color: magenta;
+  }
+  50% {
+    border-color: yellow;
+  }
+  100% {
+    border-color: lime;
+  }
+}
+@-webkit-keyframes around-the-world {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+@keyframes around-the-world {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+
+
+</style>
+<div ng-controller="SearchAudio" class="contents-box video-container animate-grow" ng-show="focus == 'video'">
+	
+	
+	
+	
+	
+	<div class="audioList">
+		<div class="itemWrapper" ng-repeat="item in items" ng-if="$index < 7" ng-class="{selected: $index==0}" >
+			<img src="{{item.thumb}}/hqdefault.jpg"/>
+			<div class="itemInfo">
+				<span>{{item.title}}</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="audioPlayer">
+		 <div class="card" id="container">
+			<div class="progress">
+				<div class="progress__bar" id="songIdForPorgessBar"></div>
+			</div>
+			<div class="cover"><img id="artwork" ng-src="{{audioThumb}}/hqdefault.jpg" width="260" height="260" alt=""/></div>
+			<div class="waves">
+				<div class="baseline"></div>
+				<div class="piano"></div>
+				<div class="riffs"></div>
+				<div class="kicks"></div>
+			</div>
+			<div class="disc-placeholder">
+				<button class="play-button" id="play"><i class="fa fa-play"></i></button>
+			</div>
+			<div class="info">
+				<p class="info__band" id="band">{{audioTitle}}</p>
+				<!-- <p class="info__track" id="track">{{audioTitle}}</p> -->
+			</div>
+		</div>
+	</div>
+   
+</div>
+
+
+ <!-- <iframe ng-controller="Search" class="video animate-grow" ng-src="{{video}}" /></iframe> -->

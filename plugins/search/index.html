@@ -1,8 +1,10 @@
 <!-- YouTube -->
 <style>
+.videoPlayer .video{max-height:500px;}
 .videoList{width:100%;overflow:hidden;float:left;padding:1%;}
-.itemWrapper{width:calc(20% - 4px);float:left;}
-.itemWrapper img{width:100%;}
+.itemWrapper{width:calc(20% - 4px);float:left;max-height:200px;}
+.itemWrapper img{max-height:200px;width:100%;}
+.itemWrapper.selected{border:2px solid cyan;}
 .videoPlayer{width:100%;float:right}
 </style>
 <div ng-controller="Search" class="contents-box video-container animate-grow" ng-show="focus == 'video'">
@@ -10,11 +12,11 @@
 	
 	
 	<div class="videoPlayer">
-		<iframe class="video animate-grow" ng-src="{{video}}" /></iframe>
+		<!-- <iframe class="video animate-grow" ng-src="{{video}}" /></iframe> -->
 	</div>
 	
 	<div class="videoList">
-		<div class="itemWrapper" ng-repeat="item in items" ng-if="$index <5">
+		<div class="itemWrapper" ng-repeat="item in items" ng-if="$index <5" ng-class="{selected: $index==0}" >
 			<img src="{{item.thumb}}/hqdefault.jpg"/>
 		</div>
 	</div>	

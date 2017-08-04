@@ -19,6 +19,11 @@
 
 		// Set up our Focus
 		$rootScope.$on('focus', function (targetScope, newFocus) {
+			if(newFocus != "default"){
+				$(".greeting").css("visibility","hidden");
+			}else{
+				$(".greeting").css("visibility","visible");
+			}
 			$scope.focus = newFocus;
 		})
 

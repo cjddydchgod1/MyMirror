@@ -115,9 +115,19 @@
             "voice": "show me (a video)(of)(about) *query",
             "description": "Will show you a video of the requested item."
         },
+		"video_next":{
+			"text": "Next video",
+			"voice": "next video",
+            "description": "CUSTOM : Will show you next Video."
+		},
+		"video_prev":{
+			"text": "Prev video",
+			"voice": "prev video",
+            "description": "CUSTOM : Will show you prev Video."
+		},
         "video_stop": {
-            "text": "Stop video",
             "voice": "stop (the) video",
+            "text": "Stop video",
             "description": "Stops the playback of video content."
         },
         "image_giphy": {
