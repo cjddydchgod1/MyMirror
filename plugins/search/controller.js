@@ -1,7 +1,6 @@
 function Search($scope, $http, SpeechService, $rootScope, Focus) {
 	var youtubedl = require('youtube-dl');
 	var videoObj = [];
-	
 	var searchYouTube = function (query) {		
 		return $http({
 			url: 'https://www.googleapis.com/youtube/v3/search',
@@ -85,26 +84,7 @@ function Search($scope, $http, SpeechService, $rootScope, Focus) {
 		});
 	}
 	
-	var playAudio =  function(obj){
-		var url = 'http://www.youtube.com/watch?v='+obj.id;
-		var option = {maxBuffer:2000*1024};
-		youtubedl.getInfo(url, [], option, function(err, info) {
-			// $scope.video = info.url;
-			$(".videoPlayer").html('<audio class="video" name="media"><source src="'+info.url+'" type="video/webm"></audio> ');
-			AutoSleep.ServieManager("stop")
-			Focus.change("video");
-			
-			setTimeout( function() {
-				$(".videoPlayer").find(".video").get(0).play();
-
-				$(".videoPlayer").find('.video').on('ended',function(){
-					stopVideo();
-				});
-				
-			}, 1000 );
-				
-		});
-	}
+	
 	
 	var stopVideo = function() {
 		// var iframe = document.getElementsByTagName("iframe")[0].contentWindow;
@@ -114,6 +94,22 @@ function Search($scope, $http, SpeechService, $rootScope, Focus) {
 		AutoSleep.ServieManager("start")
 		
 	}
+	
+	
+	searchYouTube("kanye chainsmoker").then(function (results) {
+		videoObj = [];
+		angular.forEach(results.data.items, function (item, index) {
+			videoObj.push({
+				id : item.id.videoId,
+				title : item.snippet.title,
+				// thumb : item.snippet.thumbnails.default
+				 thumb : "https://i.ytimg.com/vi/"+item.id.videoId
+			});
+		});
+		$scope.items = videoObj;
+		playVideo(videoObj[0]);
+		
+	});
 	
 
 		

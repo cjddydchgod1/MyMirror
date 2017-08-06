@@ -23,21 +23,24 @@
 }
 
 .disc-placeholder {
-  float: left;
-  position: relative;
-  width: 320px;
-  height: 320px;
+  display : none;
+  position:absolute;
+  bottom:20px;
+  right:20px;  
 }
 
+.disc-placeholder.active {
+	display : block;
+}
+
+.active .play-button{
+	animation: around-the-world 8275.86207ms linear 128;
+}
 .play-button {
-  position: absolute;
-  top: 50%;
-  left: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  width: 64px;
-  height: 64px;
-  background: gold;
+  width: 94px;
+  height: 94px;
   border-radius: 50%;
   border: 0;
   outline: 0;
@@ -47,17 +50,14 @@
   text-align: center;
   -webkit-transition: all .5s ease-in-out;
   transition: all .5s ease-in-out;
-}
-.play-button:hover {
-  background: magenta;
-}
-.playing .play-button {
-  background: #292735;
-  color: #383749;
+  background-size:cover;
+  background-repeat:no-repeat;
+  border:5px solid gold;
 }
 
 .info {
-  position: relative;
+  position: absolute;
+  bottom:0px;
   padding: 0 20px;
   font-weight: 300;
   float: left;
@@ -66,6 +66,9 @@
 }
 .info__band {
   font-weight: bold;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
 }
 
 .progress {
@@ -252,7 +255,7 @@
 
 
 </style>
-<div ng-controller="SearchAudio" class="contents-box video-container animate-grow" ng-show="focus == 'video'">
+<div ng-controller="SearchAudio" class="contents-box video-container animate-grow" ng-show="focus == 'audio'">
 	
 	
 	
@@ -279,9 +282,7 @@
 				<div class="riffs"></div>
 				<div class="kicks"></div>
 			</div>
-			<div class="disc-placeholder">
-				<button class="play-button" id="play"><i class="fa fa-play"></i></button>
-			</div>
+			
 			<div class="info">
 				<p class="info__band" id="band">{{audioTitle}}</p>
 				<!-- <p class="info__track" id="track">{{audioTitle}}</p> -->
@@ -289,7 +290,9 @@
 		</div>
 	</div>
    
+  
 </div>
+
 
 
  <!-- <iframe ng-controller="Search" class="video animate-grow" ng-src="{{video}}" /></iframe> -->
